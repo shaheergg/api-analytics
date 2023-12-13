@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../components/Logo";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 const user = {
   name: "Tom Cook",
@@ -11,7 +11,7 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Overview", href: "/", current: true },
+  { name: "Overview", href: "/dashboard", current: true },
   { name: "IP Setting", href: "/ip-settings", current: false },
 ];
 const userNavigation = [
@@ -26,7 +26,7 @@ function classNames(...classes) {
 
 export default function AppLayout({ children }) {
   const { setIsAuthenticated, isAuthenticated, setToken } = useAuth();
-
+  const path = useLocation().pathname;
   const signout = (name) => {
     if (name === "Sign out") {
       localStorage.removeItem("token");
@@ -52,11 +52,11 @@ export default function AppLayout({ children }) {
                         <div className="hidden md:block">
                           <div className="flex items-baseline ml-10 space-x-4">
                             {navigation.map((item) => (
-                              <a
+                              <Link
                                 key={item.name}
-                                href={item.href}
+                                to={item.href}
                                 className={classNames(
-                                  item.current
+                                  item.href === path
                                     ? "bg-gray-900 text-white"
                                     : "text-gray-300 hover:bg-gray-700 hover:text-white",
                                   "rounded-md px-3 py-2 text-sm font-medium"
@@ -64,7 +64,7 @@ export default function AppLayout({ children }) {
                                 aria-current={item.current ? "page" : undefined}
                               >
                                 {item.name}
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </div>
@@ -212,7 +212,7 @@ export default function AppLayout({ children }) {
             <header className="">
               <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                  {navigation.find((n) => n.current).name}
+                  {path === "/dashboard" ? "Overview" : "IP Settings"}
                 </h1>
               </div>
             </header>

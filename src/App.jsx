@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import Login from "./pages/Login";
+import IpSetting from "./pages/IpSetting";
 function App() {
   return (
     <>
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/ip-settings" element={<h1>IP Settings</h1>} />
+            <Route path="/ip-settings" element={<IpSetting />} />
           </Route>
           <Route path="/" element={<PublicRoutes />}>
             <Route path="/login" element={<Login />} />
