@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import LogoLight from "../components/LogoLight";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-function Login() {
+function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-
   const { setToken, setIsAuthenticated } = useAuth();
-  const loginHandler = (e) => {
+  const [error, setError] = useState(null);
+  const signupHanfler = (e) => {
     e.preventDefault();
 
     // Check for empty username or password
@@ -18,7 +17,7 @@ function Login() {
       return;
     }
 
-    fetch("http://localhost:3000/signin", {
+    fetch("http://localhost:3000/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,8 +27,8 @@ function Login() {
       .then((response) => {
         // Check for non-successful response status
         if (!response.ok) {
-          console.error("Login failed:", response.statusText);
-          throw new Error("Login failed");
+          console.error("Signup failed:", response.statusText);
+          throw new Error("Signup failed");
         }
 
         return response.json();
@@ -55,9 +54,7 @@ function Login() {
       <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
         <LogoLight />
         <div>
-          <h2 className="text-lg font-semibold">
-            Sign In to your workos account
-          </h2>
+          <h2 className="text-lg font-semibold">Create your workos account</h2>
         </div>
         {error && (
           <div className="p-4 text-red-500 bg-red-100 rounded w-96">
@@ -81,15 +78,15 @@ function Login() {
               placeholder="Your password..."
             />
             <button
-              onClick={loginHandler}
+              onClick={signupHanfler}
               className="px-4 py-2 text-white bg-black rounded hover:bg-gray-900"
             >
-              Login
+              Sign up
             </button>
             <span className="mt-4">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-gray-500 hover:underline">
-                Sign Up
+              Already have an account?{" "}
+              <Link to="/login" className="text-gray-500 hover:underline">
+                Login
               </Link>
             </span>
           </form>
@@ -99,4 +96,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

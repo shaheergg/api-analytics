@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LineChart from "../components/LineChart";
 import { useAuth } from "../context/AuthContext";
 import { transformData } from "../lib/helpers";
+import CsvDownloadButton from "react-json-to-csv";
 function Dashboard() {
   const { token } = useAuth();
   const [reqeusts, setRequests] = useState([]);
@@ -38,9 +39,7 @@ function Dashboard() {
       <div className="h-56 gap-4 rounded ">
         <div className="flex items-center justify-between flex-1 w-full rounded-lg">
           <div>
-            <div className="text-2xl font-bold text-gray-800">
-              Analytics [Past 30 days]
-            </div>
+            <div className="text-2xl font-bold text-gray-800">Analytics</div>
           </div>
           <div></div>
         </div>
@@ -73,7 +72,7 @@ function Dashboard() {
                   d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
                 />
               </svg>
-              Download Logs
+              <CsvDownloadButton data={reqeusts} filename="requests_log" />
             </button>
           </div>
           <div className="flow-root mt-8">

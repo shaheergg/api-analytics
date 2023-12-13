@@ -6,6 +6,7 @@ import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import Login from "./pages/Login";
 import IpSetting from "./pages/IpSetting";
+import Signup from "./pages/Singup";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
             <Route path="/ip-settings" element={<IpSetting />} />
           </Route>
           <Route path="/" element={<PublicRoutes />}>
+            <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
           </Route>
         </Routes>
